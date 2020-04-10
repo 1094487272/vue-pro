@@ -25,6 +25,18 @@ Vue.use(VueRouter)
     path: '/info',
     component: Info
   },
+  {
+    path: '/login',
+    component:()=>import("@/views/Login")
+  },
+  {
+    path: '/reg',
+    component:()=>import("@/views/Reg")
+  },
+  {
+    path: '/',
+    redirect:"/films"
+  }
   
 ]
 
