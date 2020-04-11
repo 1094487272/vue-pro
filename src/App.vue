@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="nav">
+    <nav class="nav" v-show="isshow">
       <ul>
         <router-link 
           v-for="nav in navlist"
@@ -16,6 +16,8 @@
   </div>
 </template>
 <script>
+import {mapState} from "vuex"
+import axios from "axios"
 export default {
   data() {
     return {
@@ -27,6 +29,9 @@ export default {
       ]
     }
   },
+  computed:{
+    ...mapState(["isshow"])
+  }
 }
 </script>
 <style lang="scss" scoped>

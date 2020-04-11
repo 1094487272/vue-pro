@@ -4,6 +4,7 @@ import Films from "@/views/Films"
 import Cinema from "@/views/Cinema"
 import Center from "@/views/Center"
 import Info from "@/views/Info"
+import axios from "axios"
 
 Vue.use(VueRouter)
 
@@ -18,7 +19,10 @@ Vue.use(VueRouter)
   },
   {
     path: '/center',
-    component: Center
+    component: Center,
+    meta:{
+      ispower:true
+    }
   },
  
   {
@@ -45,5 +49,23 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to,from,next)=>{
+  if(to.meta.ispower){
+      let token=localStorage.getItem("token");
+      axios.get("http://localhost:1123/users/ver",{
+        params:{
+          token
+        }
+      }).then((res)=>{
+        if(res.data.type){
+          next();
+        }else{
+          router.push({path:"/login",targetUrl:to.path})
+        }
+      })
+  }else{
+    next();
+  }
+})
 
 export default router
